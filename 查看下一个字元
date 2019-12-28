@@ -1,0 +1,47 @@
+#include <stdio.h>
+
+char my_buffer;
+int has_buffer=0;
+**********************************************
+char peek_next_char()//查看下一个字元是什么
+{
+     if(has_buffer==0)
+     {
+          my_buffer=getchar();
+          has_buffer=1;
+     }
+     return my_buffer;
+}
+***********************************************
+char my_getchar()//取出my_buffer
+{
+     if(has_buffer==1)
+     {
+          has_buffer=0;
+          return my_buffer;
+     }
+     else
+     {
+          char buf;
+          buf=getchar();
+          return buf;
+     }
+}
+*************************************************
+int main()
+{
+  char cmd[(int)1e4],ch;
+   scanf("%s",cmd);
+  while( (ch=getchar()) != '\n' );//去掉‘\n’
+  char *ptr = cmd;
+  while( *ptr )
+  {
+      if( *ptr == 'P' )
+          putchar(peek_next_char());
+      else if( *ptr == 'G' )
+          putchar(my_getchar());
+      ptr++;
+  }
+  return 0;
+}
+
